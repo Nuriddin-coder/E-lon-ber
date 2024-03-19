@@ -2,24 +2,28 @@ import React from "react";
 import { Buttons } from "../../components/buttons";
 import { useForm } from "react-hook-form";
 import { usePostAnnoun } from "./service/mutation/usePostAnnoun";
-// import { useNavigate } from "react-router  -dom";
+import { client } from "../../config/client";
+import { useNavigate } from "react-router-dom";
 
 //// Import Icon's:
 import { BackArrowIcon } from "../../assets/icons/back-arrow-icon";
 import { Link } from "react-router-dom";
 import { loadState } from "../../lib/local-storage";
 
+const uniqId = Date.now();
+
 export const Announcement = () => {
   const { register, reset, handleSubmit } = useForm();
   const { mutate } = usePostAnnoun();
   const userData = loadState("user");
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const submit = (data) => {
-    console.log(data);
     mutate(data, {
       onSuccess: (res) => {
+        client.invalidateQueries("announ-data");
         reset();
+        navigate("/");
       },
     });
   };
@@ -39,28 +43,36 @@ export const Announcement = () => {
           <div>
             <p className="text-Clr888 mb-1">Rasm</p>
             <input
-              className="border-[1px] px-2 w-[300px] rounded-[6px] border-Clr888 py-2 outline-none"
+              className="border-[1px] px-2 w-[300px] tablet:w-[550px] rounded-[6px] border-Clr888 py-2 outline-none"
               {...register("img")}
               placeholder="Rasm uchun URL kiriting"
               type="text"
             />
           </div>
+
+          {/* Uniq ID */}
+          <input
+            {...register("uniqId")}
+            defaultValue={Number(uniqId)}
+            className="hidden"
+            type="text"
+          />
+
           {/* Product Title */}
           <div>
             <p className="text-Clr888 mb-1">Sarlavha</p>
             <input
               {...register("title")}
-              className="border-[1px] px-2 w-[300px] rounded-[6px] border-Clr888 py-2 outline-none"
+              className="border-[1px] px-2 w-[300px] tablet:w-[550px] rounded-[6px] border-Clr888 py-2 outline-none"
               placeholder="Sarlavha"
               type="text"
             />
           </div>
-
           {/* Product Category */}
           <div>
             <p className="text-Clr888 mb-1">Kategorya</p>
             <select
-              className="border-[1px] px-2 w-[300px] rounded-[6px] border-Clr888 py-2 outline-none"
+              className="border-[1px] px-2 w-[300px] tablet:w-[550px] rounded-[6px] border-Clr888 py-2 outline-none"
               {...register("category")}
             >
               <option value="hobbi">hobbi</option>
@@ -72,7 +84,15 @@ export const Announcement = () => {
               <option value="childrenFor">realEstate</option>
             </select>
           </div>
-
+          {/* text about Product */}
+          <div>
+            <textarea
+              {...register("comments")}
+              className="border-[1px] w-[300px] tablet:w-[550px] border-Clr888 outline-none appearance-none p-1 rounded-[6px] "
+              cols="30"
+              rows="10"
+            ></textarea>
+          </div>
           {/* Product Price */}
           <div>
             <p className="text-Clr888 mb-1">Narx</p>
@@ -84,7 +104,7 @@ export const Announcement = () => {
                 type="text"
               />
               <select
-                className="border-[1px] px-2 w-[300px] rounded-[6px] border-Clr888 py-2 outline-none"
+                className="border-[1px] px-2 w-[300px] tablet:w-[550px] rounded-[6px] border-Clr888 py-2 outline-none"
                 {...register("currency")}
               >
                 <option value="uzs">UZS</option>
@@ -101,7 +121,7 @@ export const Announcement = () => {
               <p className="text-Clr888 mb-1">Joylashuv</p>
               <input
                 {...register("location")}
-                className="border-[1px] px-2 w-[300px] rounded-[6px] text-Clr888 border-Clr888 py-2 outline-none"
+                className="border-[1px] px-2 w-[300px] tablet:w-[550px] rounded-[6px] text-Clr888 border-Clr888 py-2 outline-none"
                 defaultValue={userData ? userData.location : ""}
                 type="text"
               />
@@ -109,7 +129,7 @@ export const Announcement = () => {
             <div>
               <p className="text-Clr888 mb-1">Ism</p>
               <input
-                className="border-[1px] px-2 w-[300px] rounded-[6px] text-Clr888 border-Clr888 py-2 outline-none"
+                className="border-[1px] px-2 w-[300px] tablet:w-[550px] rounded-[6px] text-Clr888 border-Clr888 py-2 outline-none"
                 defaultValue={userData ? userData.name : ""}
                 type="text"
               />
@@ -117,14 +137,14 @@ export const Announcement = () => {
             <div>
               <p className="text-Clr888 mb-1">Email</p>
               <input
-                className="border-[1px] px-2 w-[300px] rounded-[6px] text-Clr888 border-Clr888 py-2 outline-none"
+                className="border-[1px] px-2 w-[300px] tablet:w-[550px] rounded-[6px] text-Clr888 border-Clr888 py-2 outline-none"
                 defaultValue={userData ? userData.email : ""}
                 type="text"
               />
             </div>
           </div>
         </div>
-        <div className="mt-8 text-center">
+        <div className="mt-8 text-center tablet:text-start">
           <Buttons variant="primary">E'lon Joylashtirish</Buttons>
         </div>
       </form>

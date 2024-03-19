@@ -23,13 +23,15 @@ export default {
         Clr8c8c: "#8C8C8C",
         Clrf5f5: "#F5F5F5",
         Clr181d: "#181D27",
+        Clr1919: "#19191C",
       },
       screens: {
         tablet: "768px",
         desktop: "980px",
+        miniTab: "550px",
       },
       gridTemplateColumns: {
-        cardColumn: "repeat(auto-fit, minmax(160px, 1fr))",
+        cardColumn: "repeat(auto-fit, minmax(150px, 1fr))",
       },
     },
   },

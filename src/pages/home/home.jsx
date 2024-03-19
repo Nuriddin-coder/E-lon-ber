@@ -11,7 +11,6 @@ import { AnnouncementCard } from "../../components/cards/announcementCrad";
 
 export const Home = () => {
   const { data } = useGetAllData();
-  console.log(data);
   return (
     <div>
       {/* Search for Mobile */}
@@ -28,9 +27,9 @@ export const Home = () => {
         </div>
       </div>
 
-      <div className="container">
-        <h1 className="text-[18px] text-Clr1314 font-bold">Siz uchun maxsus</h1>
-        <div className="grid grid-cols-cardColumn gap-y-4 justify-items-center">
+      <div className="container py-[50px]">
+        <h1 className="text-[18px] tablet:text-[22px] text-Clr1314 font-bold">Siz uchun maxsus</h1>
+        <div className="grid mt-4 grid-cols-cardColumn gap-y-4 justify-items-center tablet:grid-cols-3 desktop:grid-cols-4">
           {data?.map((item) => (
             <AnnouncementCard key={item.id} {...item} />
           ))}

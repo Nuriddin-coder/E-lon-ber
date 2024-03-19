@@ -3,6 +3,7 @@ import { About } from "../pages/about";
 import { Register } from "../pages/register";
 import { Login } from "../pages/login";
 import { Announcement } from "../pages/announcement";
+import { ProductSingle } from "../pages/productSingle";
 
 export const pages = [
   {
@@ -28,5 +29,10 @@ export const pages = [
     id: 5,
     element: <Announcement />,
     path: "/announcement",
+  },
+  {
+    id: 6,
+    element: <ProductSingle />,
+    path: "/product-single/:id",
   },
 ];
